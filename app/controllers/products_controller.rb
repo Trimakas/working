@@ -1,8 +1,9 @@
 class ProductsController < AuthenticatedController
-  respond_to :html, :js
+
+respond_to :html, :js
   
   def index
-    @products = Product.all
+    @products = Product.search(params[:search]).paginate(page: params[:page], per_page: 4)
   end
 
   def show
