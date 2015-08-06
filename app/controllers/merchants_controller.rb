@@ -9,6 +9,7 @@ class MerchantsController < ApplicationController
         
         if @merchant.save
             flash[:success] = "Thanks for signing up with ByteStand"
+            session[@merchant_id] = @merchant.id
             redirect_to products_path
         else
            render 'new' 
@@ -29,7 +30,7 @@ class MerchantsController < ApplicationController
             render 'edit'
         end
     end
-        
+    
         private
         def merchant_params
            params.require(:merchant).permit(:name, :email, :password, :merchant_id, :token, :marketplace) 

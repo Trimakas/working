@@ -162,3 +162,48 @@ a {
 .btm_spacer {
     margin-bottom: 10px;
 }
+
+.no_right_margin {
+    
+    margin-right: 0px;
+}
+
+.big_box {
+    width: 300px;
+    height: 46px;
+    
+}
+
+.control-label {
+    font-size: 18px;
+}
+
+.border {
+    border-style: solid;
+    border-color: #3a3a3a;
+}
+
+.space {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.btn_spacer {
+    
+    margin-top: 20px;
+}
+
+.letter-space {
+    margin-right: 15px;
+}
+
+.help {
+    border: 0px;
+    background-color: transparent;
+    color: #ffa200;
+}
+
+.no_color {
+    border: 0px;
+    background-color: transparent;
+}

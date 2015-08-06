@@ -1,7 +1,9 @@
 <% if obj.errors.any? %>
+    
+<div class="container-fluid">
     <div class="row">
-        <div class="alert alert-danger col-md-8 col-md-offset-2">
-            <h5>Please correct the following errors Jack</h5>
+        <div class="alert alert-danger col-md-12">
+            <h5>Please correct the following errors</h5>
             <ul>
                 <% obj.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
@@ -9,4 +11,5 @@
             </ul>
         </div>
     </div>
+</div>
 <% end %>

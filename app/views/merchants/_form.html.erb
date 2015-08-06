@@ -1,72 +1,93 @@
 <%= render 'shared/errors', obj: @merchant %>
 
+<script>
+$(function () { 
+    $("[rel=popover]").popover();   
+});
+</script>
+
 <%= form_for @merchant do |f| %>
-    
-        <div class="container-fluid col-md-offset-2 col-sm-7">
 
+<div class="container-fluid">
+     
+        <div class="spacer col-md-offset-2 col-sm-6">
             <h2>Register</h2>
+        </div>
+        
+        <div class="well col-md-offset-2 col-sm-6">
 
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <%= f.text_field :name, :class => "form-control input-lg", :placeholder => "Name" %>
+                <span class="input-group-addon no_color">
+                  <i tabindex="0" class="glyphicon glyphicon-question-sign help" role="button"
+                  data-toggle="popover" rel="popover" data-placement="left" data-trigger="hover" title="Name" data-content="The name your mama gave you. Don't worry this is going to be easy."></i>
+                </span>
+            </div>
+          </div>
+ 
+ 
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                </div>
+                    <%= f.text_field :email, :class => "form-control input-lg", :placeholder => "Email" %>
+            </div>
+          </div>
+              
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                </div>
+                    <%= f.password_field :password, :class => "form-control input-lg", :placeholder => "Password" %>
+            </div>
+          </div>
+              
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+                </div>
+                    <%= f.text_field :merchant_id, :class => "form-control input-lg", :placeholder => "Seller Id" %>
+            </div>
+          </div>
+          
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                </div>
+                    <%= f.text_field :marketplace, :class => "form-control input-lg", :placeholder => "Marketplace Id" %>
+            </div>
+          </div>
 
-            <div class="well">
-              <div class="row spacer">
-                <div class="form-group">                        
-                    <label for="Name" class="col-sm-2 control-label">Name</label>
-                    <div class="col-sm-6">
-                      <%= f.text_field :name, class: 'form-control' %>
-                    </div>
+          <div class="row spacer">
+            <div class="input-group input-group-lg space spacer">
+                <div class="input-group-addon border">    
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                 </div>
-              </div>
-              
-              <div class="row spacer">
-                <div class="form-group">                        
-                    <label for="Email" class="col-sm-2 control-label">Email</label>
-                    <div class="col-sm-6">
-                      <%= f.email_field :email, class: 'form-control' %>
-                    </div>
-                </div>
-              </div>
-              
-              <div class="row spacer">
-                <div class="form-group">                        
-                    <label for="Password" class="col-sm-2 control-label">Password</label>
-                    <div class="col-sm-6">
-                      <%= f.password_field :password, class: 'form-control' %>
-                    </div>
-                </div>
-              </div>
-              
-              <div class="row spacer">                        
-                <div class="form-group">
-                    <label for="Merchant Id" class="col-sm-2 control-label">Merchant Id</label>
-                    <div class="col-sm-6">                            
-                      <%= f.text_field :merchant_id, class: 'form-control' %>
-                    </div>
-                </div>
-              </div>  
-              
-              <div class="row spacer">                        
-                <div class="form-group">
-                    <label for="Token" class="col-sm-2 control-label">Token</label>
-                    <div class="col-sm-6">                            
-                      <%= f.text_field :token, class: 'form-control' %>
-                    </div>
-                </div>
-              </div>  
-              
-              <div class="row spacer">                        
-                <div class="form-group">
-                    <label for="Marketplace" class="col-sm-2 control-label">Marketplace</label>
-                    <div class="col-sm-6">                            
-                      <%= f.text_field :marketplace, class: 'form-control' %>
-                    </div>
-                </div>
-              </div>  
-              
-        <div class="row spacer col-sm-offset-5">
-        <%= f.submit(@merchant.new_record? ? "Sign Up" : "Edit Profile" , :class=> "btn btn-primary") %>
-        <button type="button" class="btn btn-default">Close</button>
+                    <%= f.text_field :token, :class => "form-control input-lg", :placeholder => "MWS Auth. Token" %>
+            </div>
+          </div>          
+          
+        <div class="btn_spacer">
+          <%= f.submit "Sign Up", :class=> "btn btn-primary btn-lg btn-block" %>
+        </div>
+        
+        <div class="row spacer pull-right">
+          <p class="letter-space">Already have a ByteStand account? <a href="/sign_in"> Login</a></p> 
         </div>
         
     </div>
   </div>
+</div
 <% end %>
+
+<div class="container-fluid col-md-offset-4 col-sm-6 ">
+  <img alt="ByteStand" src="http://s2.postimg.org/74hul1t7t/navbar_brand.png">
+</div>

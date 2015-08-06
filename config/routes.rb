@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   
   get '/register', to: 'merchants#new'
   
+  get '/sign_in', to: "logins#new"
+  post '/sign_in', to: "logins#create"
+  get '/logout', to: "logins#destroy"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
