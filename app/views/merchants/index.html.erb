@@ -1,0 +1,22 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Home",
+      icon: "<%= asset_path('faveicon.png') %>"
+    });
+  });
+</script>
+
+<div class="container-fluid"> <!-- this should go around the entire deal, including the second col -->
+    <div class="col-md-5 col-md-offset-3 text-center">
+        <img alt="ByteStand" src="http://s8.postimg.org/qjmeydkw5/home.png"><!-- prob not right -->
+    </div>
+    <div class="row"> <!-- pretty sure this has to go around everything too -->
+        <div class="well col-md-2 col-md-offset-3 text-center">
+            <%= link_to 'Sign Up', register_path , :class => 'btn btn-primary btn-lg btn-block' %>
+        </div>
+        <div class="well col-md-2 col-md-offset-1 text-center">
+            <%= link_to 'Login', sign_in_path , :class => 'btn btn-primary btn-lg btn-block' %>
+        </div>
+    </div>
+</div>

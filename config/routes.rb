@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     get 'logout' => :destroy, :as => :logout
   end
 
-  root :to => 'products#index'
+  root :to => 'merchants#index'
+  
   resources :products do
     get 'delete'
   end
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   
   get '/sign_in', to: "logins#new"
   post '/sign_in', to: "logins#create"
-  get '/logout', to: "logins#destroy"
+  get '/sign_out', to: "logins#destroy"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

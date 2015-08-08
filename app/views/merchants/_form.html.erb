@@ -11,9 +11,14 @@ $(function () {
 <div class="container-fluid"> <!-- this should go around the entire deal, including the second col -->
   <div class="row"> <!-- pretty sure this has to go around everything too -->
     
-    <div class="col-md-6 well col-md-offset-1"> <!-- This well is just for the first column -->
-      <h2 class="letter-space">Register</h2>
-    
+    <% if @merchant.new_record? %>
+      <div class="col-md-6 well col-md-offset-1"> <!-- This well is just for the first column -->
+        <h2 class="letter-space"><%= "#{@title}" %></h2>
+    <% else %>
+      <div class="col-md-6 well col-md-offset-3"> <!-- This well is just for the first column -->
+        <h2 class="letter-space"><%= "#{@title}" %></h2>
+    <% end %>
+        
         <div class="col-md-12">  <!-- This is inside the first well, and says take up all the 8 rows we have-->
           <form class="form-horizontal"> <!-- needs to wrap around all the form-groups -->
             
@@ -53,7 +58,7 @@ $(function () {
                 <div class="input-group-addon border">    
                 <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
                 </div>
-                    <%= f.text_field :merchant_id, :class => "form-control input-lg", :placeholder => "Seller Id" %>
+                    <%= f.text_field :merchant_identifier, :class => "form-control input-lg", :placeholder => "Seller Id" %>
             </div>
           </div> <!-- This should be good -->
           
@@ -75,59 +80,39 @@ $(function () {
             </div>
           </div> <!-- This should be good -->
           
-          <!-- Not sure about this button.. we'll see -->
-          <%= f.submit "Sign Up", :class=> "btn btn-primary btn-lg btn-block" %>
 
-          <!-- Not sure about this text either.. we'll see -->
-        <div class="spacer pull-right">
-          <p>Already have a ByteStand account? <a href="/sign_in"> Login</a></p> 
-        </div>
+
+          <% if @merchant.new_record? %>
+            <%= f.submit "Sign Up", :class=> "btn btn-primary btn-lg btn-block" %>
+            <div class="spacer pull-right">
+              <p>Already have a ByteStand account? <a href="/sign_in"> Login</a></p> 
+            </div>
+          <% else %>
+            <%= f.submit "Save Profile", :class=> "btn btn-primary btn-lg btn-block" %>
+          <% end %>
         
-        <% end %>
+        <% end %> <!-- this is the end of the do at the very top of the page -->
         
             </form> <!-- this is the end of the horizontal form tag, around all the forms in this well -->
         </div> <!-- this is for the 12 columns INSIDE the well -->
       </div> <!-- this is the well itself -->
 
 
-      <div class="col-md-3 col-md-offset-1 well">
-        <h3 class="letter-space">Steps to get your registration info</h3>
-        <hr>
-          <div class="col-md-12">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <h4>Step 1. Sign up for <a href="https://developer.amazonservices.com/" target="_blank">Amazon MWS</a></h4>
-                <%= render "shared/step1" %>
-                <%= link_to "Details", "#step1", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
-              </div>
-              
-              <div class="form-group">
-                <h4>Step 2. Allow us access to your Amazon account</h4>
-                <%= render "shared/step2" %>
-                <%= link_to "Details", "#step2", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
-              </div>
-              
-              <div class="form-group">
-                <h4>Step 3. Promise your first born to Amazon by accepting their terms</h4>
-                <%= render "shared/step3" %>
-                <%= link_to "Details", "#step3", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
-              </div>
-              
-              <div class="form-group">
-                <h4>Step 4. Capture all your important id's and register for ByteStand</h4>
-                <%= render "shared/step4" %>
-                <%= link_to "Details", "#step4", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
-              </div>
-              
-            </form>
-          </div>
+<!-- this is the start of the second column with all the help stuff -->
+      <% if @merchant.new_record? %>
+        <%=render 'help' %>
+      <% end %>
+      
+    </div> <!-- this is the overall row for the ENTIRE page-->
+    <% if @merchant.new_record? %>  
+      <div class="col-md-3 col-md-offset-3">
+        <img alt="ByteStand" src="http://s2.postimg.org/74hul1t7t/navbar_brand.png"><!-- prob not right -->
       </div>
-      
-    </div> <!-- this is the overall row-->
-      
-    <div class="col-md-3 col-md-offset-3">
-      <img alt="ByteStand" src="http://s2.postimg.org/74hul1t7t/navbar_brand.png"><!-- prob not right -->
-    </div>
+    <% else %>
+      <div class="col-md-3 col-md-offset-5">
+        <img alt="ByteStand" src="http://s2.postimg.org/74hul1t7t/navbar_brand.png"><!-- prob not right -->
+      </div>
+    <% end %>
     
-</div> <!-- this is the overall container -->
+</div> <!-- this is the overall container for the WHOLE page -->
 

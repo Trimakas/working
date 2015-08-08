@@ -1,0 +1,33 @@
+    
+    <div class="col-md-3 col-md-offset-1 well">
+    <h3 class="letter-space">Steps to get your registration info</h3>
+    <hr>
+      <div class="col-md-12">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <h4>Step 1. Sign up for <a href="https://developer.amazonservices.com/" target="_blank">Amazon MWS</a></h4>
+            <%= render "shared/step1" %>
+            <%= link_to "Details", "#step1", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
+          </div>
+          
+          <div class="form-group">
+            <h4>Step 2. Allow us access to your Amazon account</h4>
+            <%= render "shared/step2" %>
+            <%= link_to "Details", "#step2", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
+          </div>
+          
+          <div class="form-group">
+            <h4>Step 3. Promise your first born to Amazon by accepting their terms</h4>
+            <%= render "shared/step3" %>
+            <%= link_to "Details", "#step3", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
+          </div>
+          
+          <div class="form-group">
+            <h4>Step 4. Capture all your important id's and register for ByteStand</h4>
+            <%= render "shared/step4" %>
+            <%= link_to "Details", "#step4", "data-toggle" => "modal", :class => "btn btn-primary btn-md" %>
+          </div>
+          
+        </form>
+      </div>
+    </div>

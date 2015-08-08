@@ -1,0 +1,63 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Home",
+      icon: "<%= asset_path('faveicon.png') %>"
+    });
+  });
+</script>
+
+<script src="sorttable.js"></script>
+
+<%= render '/shared/nav' %>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <span class="col-xs-6">
+    <h1>Products</h1>
+      <%= link_to '', merchant_path , :class => 'btn btn-primary glyphicon glyphicon-refresh btm_spacer' %>
+    </span>
+    
+  </div>
+  
+  <table class="table table-striped table-hover table-bordered table-condensed sortable">
+    <thead>
+      <tr>
+        <th><a>TITLE</a></th>
+        <th><a>ASIN</a></th>
+        <th><a>PRICE</a></th>
+        <th><a>SKU</a></th>
+        <th> </th>
+        <th> </th>
+      </tr>
+    </thead>
+<tbody class="product-index">
+    
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.title %></td>
+    <td><%= product.asin %></td>
+    <td><%= number_to_currency(product.price) %></td>
+    <td><%= product.sellersku %></td>
+    <td><%= link_to "Edit", edit_product_path(product), remote: true, class: "btn btn-primary btn-sm" %></td>
+    <td><%= link_to "Delete", product_delete_path(product), remote: true, class: "orange btn btn-primary btn-sm" %></td>
+  </tr>
+<% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<div id="product-modal" class="modal fade"></div>
+
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-xs-6 text-left">
+        <%= link_to 'Save', " ", :class => 'btn btn-primary' %>
+      </div>
+      <div class="col-xs-6 text-right">   
+        <%= will_paginate @products %>
+      </div>
+  </div>
+</div>

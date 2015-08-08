@@ -6,11 +6,12 @@ class LoginsController < ApplicationController
     
     
     def create
-        merchant = Merchant.find_by(email: params[:email])
+        merchant = Merchant.find_by(email: params[:email]) #so this just sets merchant to the user who is trying to login.
+        
         if merchant && merchant.authenticate(params[:password])
             session[:merchant_id] = merchant.id
             flash[:success] = "You were logged in successfully"
-            redirect_to root_path
+            redirect_to merchant_path(merchant.id) #might want to update this to probably the merchant#show action..
         else
             flash.now[:danger] = "Either your email or password is incorrect"
             render 'new'
@@ -22,6 +23,7 @@ class LoginsController < ApplicationController
     def destroy
         session[:merchant_id] = nil
         flash[:success] = "You have logged out"
+        redirect_to root_path
     end
     
     
