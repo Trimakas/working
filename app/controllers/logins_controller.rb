@@ -13,7 +13,7 @@ class LoginsController < ApplicationController
             flash[:success] = "You were logged in successfully"
             redirect_to merchant_path(merchant.id) #might want to update this to probably the merchant#show action..
         else
-            flash.now[:danger] = "Either your email or password is incorrect"
+            flash.now[:danger] = "Snap! either your email or password is incorrect. Try again"
             render 'new'
         end
         

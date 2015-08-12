@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807155617) do
+ActiveRecord::Schema.define(version: 20150811230607) do
 
-  create_table "merchants", force: :cascade do |t|
-    t.string   "name"
-    t.string   "merchant_identifier"
-    t.string   "token"
-    t.string   "marketplace"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "password_digest"
-    t.string   "email"
+  create_table "merchants", id: false, force: :cascade do |t|
+    t.string "merchant_identifier", null: false
+    t.string "name"
+    t.string "token"
+    t.string "marketplace"
+    t.string "password_digest"
+    t.string "email"
   end
+
+  add_index "merchants", ["merchant_identifier"], name: "index_merchants_on_merchant_identifier", unique: true
 
   create_table "products", force: :cascade do |t|
     t.text     "title"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20150807155617) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
+
+  add_index "products", ["merchant_identifier"], name: "index_products_on_merchant_identifier"
 
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false

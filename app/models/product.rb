@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-    belongs_to :merchant
+    belongs_to :merchant, :foreign_key => 'merchant_identifier', :primary_key => 'merchant_identifier'
     
     def self.search(search)
         if search    

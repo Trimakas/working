@@ -1,11 +1,5 @@
 <%= render 'shared/errors', obj: @merchant %>
 
-<script>
-$(function () { 
-    $("[rel=popover]").popover();   
-});
-</script>
-
 <%= form_for @merchant do |f| %>
 
 <div class="container-fluid"> <!-- this should go around the entire deal, including the second col -->
@@ -27,11 +21,7 @@ $(function () {
                   <div class="input-group-addon border">    
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                   </div>
-                  <%= f.text_field :name, :class => "form-control input-lg", :placeholder => "Name" %>
-                  <span class="input-group-addon no_color">
-                    <i tabindex="0" class="glyphicon glyphicon-question-sign help" role="button"
-                    data-toggle="popover" rel="popover" data-placement="left" data-trigger="hover" title="Name" data-content="The name your mama gave you. Don't worry this is going to be easy."></i>
-                  </span>
+                  <%= f.text_field :name, :class => "form-control input-lg", :placeholder => "Your Name" %>
               </div>
             </div> <!-- This should be good -->
  
