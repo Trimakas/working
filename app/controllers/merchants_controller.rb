@@ -36,11 +36,16 @@ class MerchantsController < ApplicationController
     end
     
     def show
-       @merchant = Merchant.find(params[:id]) #this returns the merchant who is signed in..
-       binding.pry
-       @products = @merchant.products.paginate(page: params[:page], per_page: 4) # this is supposed to be the products the
-       #logged in merchant owns..
-       binding.pry
+
+        params[:id] = session[:merchant_id]
+        #binding.pry
+        if params[:id] != nil
+            @merchant = Merchant.find(params[:id]) #this returns the merchant who is signed in..
+            #binding.pry
+            @products = @merchant.products # this is supposed to be the products the
+        else
+            render 'index'
+        end
     end
     
         private

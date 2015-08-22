@@ -3,7 +3,7 @@ class ProductsController < AuthenticatedController
 respond_to :html, :js
   
   def index
-    @products = Product.search(params[:search]).paginate(page: params[:page], per_page: 4)
+    @products = Product.all
   end
 
   def show
@@ -21,14 +21,14 @@ respond_to :html, :js
 
   def edit
     @product = Product.find(params[:id])
-    #binding.pry
   end
 
   def update
     @products = Product.all
     @product = Product.find(params[:id])
+    @merchant = @product.merchant
     @product.update_attributes(product_params)
-    redirect_to root_path
+    redirect_to merchant_path(@merchant)
   end
 
   def delete
@@ -38,11 +38,13 @@ respond_to :html, :js
   def destroy
     @products = Product.all
     @product = Product.find(params[:id])
+    @merchant = @product.merchant
     @product.destroy
+    redirect_to merchant_path(@merchant)
   end
 
     private
       def product_params
-        params.require(:product).permit(:title, :asin, :price, :sellersku)
+        params.require(:product).permit(:title, :asin, :price, :sellersku, :id, :merchant_identifier)
       end
 end

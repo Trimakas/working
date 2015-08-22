@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'logout' => :destroy, :as => :logout
   end
 
-  root :to => 'merchants#index'
+  root :to => 'merchants#show'
   
   resources :products do
     get 'delete'

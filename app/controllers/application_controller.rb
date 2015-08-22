@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   
   helper_method :current_merchant, :logged_in?
+  include SessionsHelper
   
   def current_merchant
     @current_merchant ||= Merchant.find(session[:merchant_id]) if session[:merchant_id]

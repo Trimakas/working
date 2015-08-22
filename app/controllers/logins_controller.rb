@@ -1,7 +1,7 @@
 class LoginsController < ApplicationController
     
     def new
-        
+
     end
     
     
@@ -10,6 +10,7 @@ class LoginsController < ApplicationController
         
         if merchant && merchant.authenticate(params[:password])
             session[:merchant_id] = merchant.id
+            log_in(merchant)
             flash[:success] = "You were logged in successfully"
             redirect_to merchant_path(merchant.id) #might want to update this to probably the merchant#show action..
         else
