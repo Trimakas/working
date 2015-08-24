@@ -1,7 +1,7 @@
 class ProductsController < AuthenticatedController
 
-respond_to :html, :js
-  
+  respond_to :html, :js
+
   def index
     @products = Product.all
   end
@@ -36,7 +36,6 @@ respond_to :html, :js
   end
 
   def destroy
-    @products = Product.all
     @product = Product.find(params[:id])
     @merchant = @product.merchant
     @product.destroy

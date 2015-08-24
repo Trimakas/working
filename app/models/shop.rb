@@ -1,7 +1,7 @@
 class Shop < ActiveRecord::Base
   include ShopifyApp::Shop
     def self.store(session)
-        shop = self.new(domain: session.url, token: session.token)
+        shop = self.new(shopify_domain: session.url, shopify_token: session.token)
         shop.save!
         shop.id
     end

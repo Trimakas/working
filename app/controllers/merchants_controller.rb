@@ -36,9 +36,7 @@ class MerchantsController < ApplicationController
     end
     
     def show
-
         params[:id] = session[:merchant_id]
-        #binding.pry
         if params[:id] != nil
             @merchant = Merchant.find(params[:id]) #this returns the merchant who is signed in..
             #binding.pry
@@ -46,6 +44,7 @@ class MerchantsController < ApplicationController
         else
             render 'index'
         end
+        #binding.pry
     end
     
         private

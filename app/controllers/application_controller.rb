@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   
   def current_merchant
     @current_merchant ||= Merchant.find(session[:merchant_id]) if session[:merchant_id]
+    binding.pry
   end
   
   def logged_in?
