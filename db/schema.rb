@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811230607) do
+ActiveRecord::Schema.define(version: 20150903202618) do
 
   create_table "merchants", id: false, force: :cascade do |t|
     t.string "merchant_identifier", null: false
     t.string "name"
-    t.string "token"
+    t.binary "encrypted_token"
     t.string "marketplace"
     t.string "password_digest"
     t.string "email"

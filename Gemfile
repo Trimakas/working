@@ -8,6 +8,13 @@ gem 'will_paginate', '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'sqlite3'
 gem 'bcrypt'
+gem 'peddler'
+gem 'vacuum'
+gem "figaro"
+gem 'attr_encrypted'
+gem 'shopify_api'
+gem 'shopify_cli'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

@@ -1,0 +1,38 @@
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Home",
+      icon: "<%= asset_path('faveicon.png') %>"
+    });
+  });
+</script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="ByteStand" src="http://s2.postimg.org/74hul1t7t/navbar_brand.png">
+      </a>
+    </div>
+  
+    <ul class="nav navbar-nav">
+        <li class="passive"><a href="#">products <span class="sr-only">(current)</span></a></li>
+        <li class="passive"><a href="#">prices <span class="sr-only">(current)</span></a></li>
+        <li class="passive"><a href="/register">register <span class="sr-only">(current)</span></a></li>
+        <li class="passive"><a href="/merchants/4/edit">edit <span class="sr-only">(current)</span></a></li>
+        <li class="passive"><a href="/sign_in">login <span class="sr-only">(current)</span></a></li>
+    </ul>
+  
+  </div>
+</nav>
+
+<div class="container-fluid"> <!-- this should go around the entire deal, including the second col -->
+    <div class="col-md-5 col-md-offset-3 text-center">
+        <img alt="ByteStand" src="http://s8.postimg.org/qjmeydkw5/home.png"><!-- prob not right -->
+    </div>
+    <div class="row"> <!-- pretty sure this has to go around everything too -->
+        <div class="well col-md-2 col-md-offset-3 text-center">
+            <%= link_to 'Pull My Products', register_path , :class => 'btn btn-primary btn-lg btn-block' %>
+        </div>
+    </div>
+</div>

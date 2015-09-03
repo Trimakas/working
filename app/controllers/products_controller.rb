@@ -1,6 +1,7 @@
 class ProductsController < AuthenticatedController
 
   respond_to :html, :js
+  include Reports
 
   def index
     @products = Product.all
@@ -40,6 +41,11 @@ class ProductsController < AuthenticatedController
     @merchant = @product.merchant
     @product.destroy
     redirect_to merchant_path(@merchant)
+  end
+
+  def push_to_shopify
+    #push the products to shopify..
+    redirect_to root_path
   end
 
     private

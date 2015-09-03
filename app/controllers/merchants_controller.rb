@@ -1,4 +1,6 @@
 class MerchantsController < ApplicationController
+    include Reports
+    include Call
 
     def index
     
@@ -44,9 +46,21 @@ class MerchantsController < ApplicationController
         else
             render 'index'
         end
-        #binding.pry
     end
     
+    def pull_from_amazon
+        
+        me = Merchant.find(params[:merchant_id])
+        marketplace = me.marketplace
+        token = me.token
+        Merchant.report_details(token, marketplace, params[:merchant_id])
+        Merchant.get_api(token, marketplace, params[:merchant_id])
+        respond_to do |format|
+            format.js {render inline: "location.reload();" }
+        end
+        
+    end
+  
         private
         def merchant_params
            params.require(:merchant).permit(:id, :name, :email, :password, :merchant_identifier, :token, :marketplace) 

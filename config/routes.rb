@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'logout' => :destroy, :as => :logout
   end
 
+ #root :to => 'sessions#new'
  root :to => 'merchants#show'
  #root :to => 'products#index'  
   
@@ -16,8 +17,19 @@ Rails.application.routes.draw do
   
   resources :merchants, except: [:new]
   
-  get '/register', to: 'merchants#new'
+  resources :merchants do
+    get 'pull_from_amazon'
+  end
   
+  resources :products do
+    collection do
+      post 'push_to_shopify'
+    end
+  end
+  
+  
+  get '/register', to: 'merchants#new'
+  get '/my_pull', to: 'merchants#pull'
   get '/sign_in', to: "logins#new"
   post '/sign_in', to: "logins#create"
   get '/sign_out', to: "logins#destroy"

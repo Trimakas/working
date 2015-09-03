@@ -1,10 +1,15 @@
 class Merchant < ActiveRecord::Base
     self.primary_key = 'merchant_identifier'
     has_many :products, :foreign_key => 'merchant_identifier', :primary_key => 'merchant_identifier'
-
+    include Reports
+    include Call
+    
     before_save { self.email = email.downcase }
     
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    
+    attr_encrypted :token, :key => ENV['token_key']
+    #attr_encrypted :encrypted_token, :key => Rails.env.test? ? 'token_key' : ENV['token_key']
     
     validates :name, presence: true, length: {minimum: 2}
     validates :merchant_identifier, presence: true, uniqueness: true, length: {minimum: 10}
