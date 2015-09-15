@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+  ShopifyApp.ready(function(){
+    ShopifyApp.Bar.initialize({
+      title: "Your Products",
+      icon: "<%= asset_path('faveicon.png') %>"
+    });
+  });
+</script>
+
 <html>
 <head>
   <title>Install Page</title>
@@ -9,11 +17,14 @@
     <body>
       <div class="form-group"> 
         <h2>Install ByteStand</h2>
-          <form method="GET" action="login">
-            <label>Enter your shop's URL:</label>
-            <input type="text" class="form-control input-lg" name="shop" placeholder="yourshop-name.myshopify.com"/>
+          <%= form_tag({controller: "sessions", action: "create"}, method: "post") do %>
+            <%= label_tag("Enter your Shopify Shop URL:") %>
+            <div class="input-group">
+              <%= text_field_tag :shop, value='yourshop-name', class: 'form-control input-lg' %>
+              <div class="input-group-addon input-lg">.myshopify.com</div>
+            </div>
               <button class="btn btn-primary btn-lg spacer" type='submit'>Install</button>
-          </form>
+          <% end %>
       </div>
 
     </body>

@@ -14,7 +14,7 @@ gem "figaro"
 gem 'attr_encrypted'
 gem 'shopify_api'
 gem 'shopify_cli'
-
+gem 'httparty'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

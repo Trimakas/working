@@ -66,7 +66,7 @@
                 <div class="input-group-addon border">    
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
                 </div>
-                    <%= f.text_field :encrypted_token, :class => "form-control input-lg", :placeholder => "MWS Auth. Token" %>
+                    <%= f.text_field :token, :class => "form-control input-lg", :placeholder => "MWS Auth. Token" %>
             </div>
           </div> <!-- This should be good -->
           
@@ -105,4 +105,4 @@
     <% end %>
     
 </div> <!-- this is the overall container for the WHOLE page -->
-
+<%= debug(params) if Rails.env.development? %>

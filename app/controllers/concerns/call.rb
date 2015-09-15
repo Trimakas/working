@@ -217,6 +217,18 @@ module ClassMethods
               @product_array.each do |save|
                 product = Product.new
                 product.title = save[:title]
+                product.bullets = save[:bullets]
+                product.package_height = save[:package_height]
+                product.package_length = save[:package_length]
+                product.package_width = save[:package_width]
+                product.vendor = save[:vendor]
+                product.product_type = save[:type]
+                product.color = save[:color]
+                product.image = save[:image]
+                product.size = save[:size]
+                product.weight = save[:weight]
+                product.compare_at_price = save[:compare_at_price]
+                product.description = save[:description]
                 product.asin = save[:asin]
                 product.price = save[:price]
                 product.sellersku = save[:sellersku]

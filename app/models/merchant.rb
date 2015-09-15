@@ -13,7 +13,7 @@ class Merchant < ActiveRecord::Base
     
     validates :name, presence: true, length: {minimum: 2}
     validates :merchant_identifier, presence: true, uniqueness: true, length: {minimum: 10}
-    validates :token, presence: true, length: {minimum: 35}
+    validates :encrypted_token, presence: true, length: {minimum: 35}
     validates :marketplace, presence: true, length: {minimum: 10}
     validates :password_digest, presence: true, length: {minimum: 2}
     validates :email, presence: true, length: { maximum: 105},

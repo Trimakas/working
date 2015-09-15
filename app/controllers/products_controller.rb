@@ -2,6 +2,7 @@ class ProductsController < AuthenticatedController
 
   respond_to :html, :js
   include Reports
+  include Send
 
   def index
     @products = Product.all
@@ -44,12 +45,14 @@ class ProductsController < AuthenticatedController
   end
 
   def push_to_shopify
-    #push the products to shopify..
-    redirect_to root_path
+    domain = Rails.cache.read("domain")
+    shop = Shop.find_by(shopify_domain: domain)
+    token = shop.shopify_token
+    Product.push_it(params[:sellersku], domain, token)
   end
 
     private
       def product_params
-        params.require(:product).permit(:title, :asin, :price, :sellersku, :id, :merchant_identifier)
+        params.require(:product).permit(:title, :asin, :price, :sellersku, :id, :merchant_identifier, Shop.shopify_domain)
       end
 end

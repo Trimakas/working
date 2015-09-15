@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
  #root :to => 'sessions#new'
- root :to => 'merchants#show'
+ root :to => 'merchants#index'
  #root :to => 'products#index'  
   
   resources :products do

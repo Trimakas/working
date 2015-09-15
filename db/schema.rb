@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903202618) do
+ActiveRecord::Schema.define(version: 20150910184913) do
 
   create_table "merchants", id: false, force: :cascade do |t|
     t.string "merchant_identifier", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150903202618) do
     t.string "marketplace"
     t.string "password_digest"
     t.string "email"
+    t.string "domain"
   end
 
   add_index "merchants", ["merchant_identifier"], name: "index_merchants_on_merchant_identifier", unique: true
@@ -32,6 +33,18 @@ ActiveRecord::Schema.define(version: 20150903202618) do
     t.string   "merchant_identifier"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.text     "description"
+    t.text     "bullets"
+    t.string   "package_height"
+    t.string   "package_length"
+    t.string   "vendor"
+    t.string   "product_type"
+    t.string   "color"
+    t.binary   "image"
+    t.string   "package_width"
+    t.string   "size"
+    t.string   "weight"
+    t.string   "compare_at_price"
   end
 
   add_index "products", ["merchant_identifier"], name: "index_products_on_merchant_identifier"
