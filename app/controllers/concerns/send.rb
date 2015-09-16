@@ -8,13 +8,17 @@ module Send
   
     module ClassMethods
     
+        
+    
         def push_it(sellersku, shop, token)
-          
-          
-          session = ShopifyAPI::Session.new(shop,token)
-          self.store(session)
-          if session.valid?
-            ShopifyAPI::Base.activate_session(session)
+
+          session[:shopify] = ShopifyAPI::Session.new(shop,token)
+          if session[:shopify].valid?
+            ShopifyAPI::Base.activate_session(session[:shopify])
+            binding.pry
+            shop = ShopifyAPI::Shop.current
+            product_test = ShopifyAPI::Product.find(2065028545)
+            binding.pry
             sellersku.each do |xyz|
               yours = find_by sellersku: xyz
               new_product = ShopifyAPI::Product.new

@@ -1,32 +1,25 @@
 class MerchantsController < ApplicationController
     include Reports
     include Call
+    
+    before_action :install, if: :shop_needs_install?
 
     def index
-        shop = Shop.find_by(shopify_domain: params[:shop])
-        merch = Merchant.find_by(domain: params[:shop])
-    
-        if shop.shopify_token == "123"
-            shop.update(shopify_token: params[:code])
-        else
-            redirect_to merchant_path(merch.merchant_identifier)
-        end
+      binding.pry
+      shop = Shop.find_by(shopify_domain: params[:shop])
+      session[:current_shop_id] = shop.id
+        
+      redirect_to new_merchant_path
     end
     
     def new
-        @merchant = Merchant.new
+      @merchant = Merchant.new
     end
 
     def create
-        @merchant = Merchant.new
-        @merchant.name = merchant_params[:name]
-        @merchant.email = merchant_params[:email]
-        @merchant.password = merchant_params[:password]        
-        @merchant.merchant_identifier = merchant_params[:merchant_identifier]
-        @merchant.marketplace = merchant_params[:marketplace]
-        @merchant.token = merchant_params[:token]
-        @merchant.domain = Rails.cache.read("domain")
-        
+        binding.pry
+        @merchant = Merchant.new(merchant_params)
+        @merchant.shop = current_shop
         if @merchant.save
             flash[:success] = "Thanks for signing up with ByteStand"
             session[:merchant_id] = @merchant.id
@@ -74,9 +67,26 @@ class MerchantsController < ApplicationController
         
     end
   
-        private
+private
+
+  def shop_needs_install?
+    return false if ! params.has_key?(:shop)
+    ! Shop.exists?(shopify_domain: params[:shop])
+  end
+  
+  def install
+    token = ShopifyTokenManager.exchange_token(params)
+    Shop.create!(shopify_token: token, shopify_domain: params[:shop])
+  end
+  
+
         def merchant_params
-           params.require(:merchant).permit(:id, :name, :email, :password, :merchant_identifier, :token, :marketplace, :domain) 
+           params.require(:merchant).permit(:id, :name, :email, :password, :merchant_identifier, 
+                                            :token, :marketplace) 
         end
+        
+  def current_shop
+      @current_shop ||= Shop.find(session[:current_shop_id])
+  end
     
 end

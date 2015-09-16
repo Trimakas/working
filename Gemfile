@@ -16,6 +16,11 @@ gem 'shopify_api'
 gem 'shopify_cli'
 gem 'httparty'
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

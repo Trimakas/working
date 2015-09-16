@@ -1,6 +1,8 @@
 class Shop < ActiveRecord::Base
   include ShopifyApp::Shop
-  include Token
+  
+  belongs_to :merchant
+  
     def self.store(session)
         shop = self.new(shopify_domain: session.url, shopify_token: session.token)
         shop.save!

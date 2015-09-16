@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910184913) do
+ActiveRecord::Schema.define(version: 20150916032412) do
 
   create_table "merchants", id: false, force: :cascade do |t|
     t.string "merchant_identifier", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150910184913) do
     t.string   "shopify_token",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merchant_id"
   end
 
   add_index "shops", ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true

@@ -20,7 +20,8 @@
           <%= form_tag({controller: "sessions", action: "create"}, method: "post") do %>
             <%= label_tag("Enter your Shopify Shop URL:") %>
             <div class="input-group">
-              <%= text_field_tag :shop, value='yourshop-name', class: 'form-control input-lg' %>
+              <%= text_field_tag :shop, nil, {
+              placeholder: 'put in your store name', class: 'form-control input-lg'} %>
               <div class="input-group-addon input-lg">.myshopify.com</div>
             </div>
               <button class="btn btn-primary btn-lg spacer" type='submit'>Install</button>

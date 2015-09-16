@@ -48,6 +48,7 @@ class ProductsController < AuthenticatedController
     domain = Rails.cache.read("domain")
     shop = Shop.find_by(shopify_domain: domain)
     token = shop.shopify_token
+    binding.pry
     Product.push_it(params[:sellersku], domain, token)
   end
 

@@ -1,6 +1,8 @@
 class Merchant < ActiveRecord::Base
-    self.primary_key = 'merchant_identifier'
-    has_many :products, :foreign_key => 'merchant_identifier', :primary_key => 'merchant_identifier'
+    has_one :shop
+    
+    has_many :products
+    
     include Reports
     include Call
     
