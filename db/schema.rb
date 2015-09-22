@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916032412) do
+ActiveRecord::Schema.define(version: 20150917192610) do
 
-  create_table "merchants", id: false, force: :cascade do |t|
+  create_table "merchants", force: :cascade do |t|
     t.string "merchant_identifier", null: false
     t.string "name"
     t.binary "encrypted_token"
@@ -23,16 +23,13 @@ ActiveRecord::Schema.define(version: 20150916032412) do
     t.string "domain"
   end
 
-  add_index "merchants", ["merchant_identifier"], name: "index_merchants_on_merchant_identifier", unique: true
-
   create_table "products", force: :cascade do |t|
     t.text     "title"
     t.text     "sellersku"
     t.text     "asin"
     t.text     "price"
-    t.string   "merchant_identifier"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.text     "description"
     t.text     "bullets"
     t.string   "package_height"
@@ -45,9 +42,8 @@ ActiveRecord::Schema.define(version: 20150916032412) do
     t.string   "size"
     t.string   "weight"
     t.string   "compare_at_price"
+    t.integer  "merchant_id"
   end
-
-  add_index "products", ["merchant_identifier"], name: "index_products_on_merchant_identifier"
 
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false

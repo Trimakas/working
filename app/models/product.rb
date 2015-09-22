@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
-    belongs_to :merchant, :foreign_key => 'merchant_identifier', :primary_key => 'merchant_identifier'
+    belongs_to :merchant
     
     validates :sellersku, uniqueness: true
+    
     include Send
 end

@@ -1,13 +1,21 @@
 class LoginsController < ApplicationController
     
+    def index
+        merchant = session[:merchant_id]
+        if merchant != nil
+            redirect_to merchant_path(merchant)
+        end
+    end
+    
+    
     def new
-
+        
+        
     end
     
     
     def create
         merchant = Merchant.find_by(email: params[:email]) #so this just sets merchant to the user who is trying to login.
-        
         if merchant && merchant.authenticate(params[:password])
             session[:merchant_id] = merchant.id
             log_in(merchant)

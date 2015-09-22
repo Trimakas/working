@@ -56,7 +56,9 @@
 
   <script type="text/javascript">
 $(document).ready(function(){
-    $('#products').DataTable();
+    $('#products').DataTable({
+      "lengthMenu": [[20, 50, 100, 500, -1], [20, 50, 100, 500, "All"]]
+    });
 });
   </script>
 
@@ -75,7 +77,7 @@ $(document).ready(function(){
     </thead>
 <tbody class="product-index">
 
-  <% @products.each do |product| %>
+  <% @merchant.products.each do |product| %>
     <tr>
       <td><%= check_box_tag('sellersku[]', product.sellersku) %></td>
       <td><%= product.title %></td>

@@ -13,27 +13,27 @@ module Call
 
 module ClassMethods
     
-    def get_api(token, marketplace_id, merchant_id)
+    def get_api(token, marketplace_id, merchant)
         @asins = []
     
         # @final_report_array = [{:sellersku=>"2273500028", :asin=>"B0015R9YL8", :price=>"15.49"}, 
         # {:sellersku=>"5154464774", :asin=>"B00013J6HY", :price=>"445.94"}, 
         # {:sellersku=>"5164589013", :asin=>"B007CB4OFM", :price=>"51.62"}, 
         # {:sellersku=>"5161195001", :asin=>"B00Q6X06W2", :price=>"11.49"}]
-  
         @final_report_array.each { |x|  @asins << x[:asin] }
-
+        @merchant_id = merchant.id
         @product_array = []
   
         @client_call = MWS::Products::Client.new(
         marketplace_id:        marketplace_id,
-        merchant_id:           merchant_id,
+        merchant_id:           merchant.merchant_identifier,
         aws_access_key_id:     ENV["aws_access_key_id"],
         aws_secret_access_key: ENV["aws_secret_access_key"]
         )
       
         @client_call.auth_token = token
-      
+        puts @client_call.get_service_status
+        binding.pry
         @asins.each do |x|
       
             def call_api(x)  
@@ -208,12 +208,12 @@ module ClassMethods
               results = {:asin => x, :bullets => bullets, :title => title, :package_height => package_height,
                         :package_length => package_length, :vendor => vendor, :type => type, :color => @color, 
                         :image => hi_image, :package_width => package_width,
-                        :size => size, :weight => weight_grams, :compare_at_price => compare_at_price,
-                        :description => @description, :price => @final_report_array[spot][:price], :sellersku => @final_report_array[spot][:sellersku]
+                        :size => size, :weight => weight, :compare_at_price => compare_at_price,
+                        :description => @description, :price => @final_report_array[spot][:price], 
+                        :sellersku => @final_report_array[spot][:sellersku], :merchant_id => @merchant_id
                         }
                         
               @product_array << results
-              
               @product_array.each do |save|
                 product = Product.new
                 product.title = save[:title]
@@ -232,7 +232,7 @@ module ClassMethods
                 product.asin = save[:asin]
                 product.price = save[:price]
                 product.sellersku = save[:sellersku]
-                product.merchant_identifier = merchant_id
+                product.merchant_id = save[:merchant_id]
                 product.save
               end
     

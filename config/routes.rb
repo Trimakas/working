@@ -8,14 +8,14 @@ Rails.application.routes.draw do
   end
 
  #root :to => 'sessions#new'
- root :to => 'merchants#index'
+ root :to => 'logins#index'
  #root :to => 'products#index'  
   
   resources :products do
     get 'delete'
   end
   
-  resources :merchants, except: [:new]
+  resources :merchants
   
   resources :merchants do
     get 'pull_from_amazon'

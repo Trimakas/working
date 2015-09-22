@@ -10,15 +10,26 @@ module Reports
   
     module ClassMethods
     
-        def report_details(token, marketplace_id, merchant_id)
+        def report_details(token, marketplace_id, merchant)
+          
+          # status = MWS::Sellers::Client.new(
+          #   marketplace_id:        marketplace_id,
+          #   merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
+          #   aws_access_key_id:     ENV["aws_access_key_id"],
+          #   aws_secret_access_key: ENV["aws_secret_access_key"]
+          # )
+          
+          # puts status.get_service_status
+          
           
           @client = MWS::Reports::Client.new(
             marketplace_id:        marketplace_id,
-            merchant_id:           merchant_id, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
+            merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
             aws_access_key_id:     ENV["aws_access_key_id"],
             aws_secret_access_key: ENV["aws_secret_access_key"]
           )
           
+
           @status_array = []
           #this is the auth token from Gennifer that I need to request her reports..
           #@client.auth_token = "amzn.mws.88a6be2d-bd98-3abd-f596-0bb2a1ed1adf"

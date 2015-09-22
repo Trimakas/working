@@ -4,28 +4,19 @@ class MerchantsController < ApplicationController
     
     before_action :install, if: :shop_needs_install?
 
-    def index
-      binding.pry
-      shop = Shop.find_by(shopify_domain: params[:shop])
-      session[:current_shop_id] = shop.id
-        
-      redirect_to new_merchant_path
-    end
-    
     def new
       @merchant = Merchant.new
     end
 
     def create
-        binding.pry
         @merchant = Merchant.new(merchant_params)
-        @merchant.shop = current_shop
+        @merchant.domain = current_shop.shopify_domain
         if @merchant.save
-            flash[:success] = "Thanks for signing up with ByteStand"
-            session[:merchant_id] = @merchant.id
-            redirect_to merchant_path(@merchant.id)
+          flash[:success] = "Thanks for signing up with ByteStand"
+          session[:merchant_id] = @merchant.id
+          redirect_to @merchant
         else
-           render 'new' 
+           render 'new'
         end
         
     end
@@ -45,33 +36,34 @@ class MerchantsController < ApplicationController
     end
     
     def show
-        params[:id] = session[:merchant_id]
-        if params[:id] != nil
-            @merchant = Merchant.find(params[:id]) #this returns the merchant who is signed in..
-            @products = @merchant.products # this is supposed to be the products the
-        else
-            render 'index'
-        end
+      @merchant ||= Merchant.find(session[:merchant_id])
+      domain = @merchant.domain
+      # token = Shop.find_by(shopify_domain: domain).shopify_token
+      # sesh = ShopifyAPI::Session.new(domain, token)
+      # SessionStorage.store(sesh)
+      # binding.pry
+      # SessionStorage.retrieve(@merchant.domain)
+      # binding.pry
     end
     
     def pull_from_amazon
-        
-        me = Merchant.find(params[:merchant_id])
-        marketplace = me.marketplace
-        token = me.token
-        Merchant.report_details(token, marketplace, params[:merchant_id])
-        Merchant.get_api(token, marketplace, params[:merchant_id])
+        current_merchant = Merchant.find(params[:merchant_id])
+        marketplace = current_merchant.marketplace
+        token = current_merchant.token
+        binding.pry
+        Merchant.report_details(token, marketplace, current_merchant)
+        Merchant.get_api(token, marketplace, current_merchant)
         respond_to do |format|
             format.js {render inline: "location.reload();" }
         end
-        
+        render @merchant
     end
   
 private
 
   def shop_needs_install?
-    return false if ! params.has_key?(:shop)
-    ! Shop.exists?(shopify_domain: params[:shop])
+    return false if !params.has_key?(:shop)
+    !Shop.exists?(shopify_domain: params[:shop])
   end
   
   def install
