@@ -1,0 +1,19 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Show Variants: <%= @product.asin %></h3>
+        </div>
+        <div class="well">
+            <div class="modal-body">
+            <ul class="errors"></ul>
+            Are you sure you wish to delete <b><%= @product.title %></b>?
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+          <%= link_to "Yes, Delete This Product", product_path(@product), method: :delete, class: "orange btn btn-primary btn-sm" %>
+          <%= link_to "No, Please Don't", "#", class: "btn btn-primary btn-sm", data: { dismiss: "modal" } %>
+        </div>
+    </div>
+  </div>

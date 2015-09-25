@@ -50,13 +50,14 @@ class MerchantsController < ApplicationController
         current_merchant = Merchant.find(params[:merchant_id])
         marketplace = current_merchant.marketplace
         token = current_merchant.token
-        binding.pry
         Merchant.report_details(token, marketplace, current_merchant)
         Merchant.get_api(token, marketplace, current_merchant)
+        Product.set_variations
         respond_to do |format|
             format.js {render inline: "location.reload();" }
         end
-        render @merchant
+        
+        
     end
   
 private

@@ -12,15 +12,14 @@ module Reports
     
         def report_details(token, marketplace_id, merchant)
           
-          # status = MWS::Sellers::Client.new(
-          #   marketplace_id:        marketplace_id,
-          #   merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
-          #   aws_access_key_id:     ENV["aws_access_key_id"],
-          #   aws_secret_access_key: ENV["aws_secret_access_key"]
-          # )
+          status = MWS::Sellers::Client.new(
+            marketplace_id:        marketplace_id,
+            merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
+            aws_access_key_id:     ENV["aws_access_key_id"],
+            aws_secret_access_key: ENV["aws_secret_access_key"]
+          )
           
-          # puts status.get_service_status
-          
+          puts status.get_service_status
           
           @client = MWS::Reports::Client.new(
             marketplace_id:        marketplace_id,

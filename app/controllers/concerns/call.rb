@@ -17,7 +17,7 @@ module ClassMethods
         @asins = []
     
         # @final_report_array = [{:sellersku=>"2273500028", :asin=>"B0015R9YL8", :price=>"15.49"}, 
-        # {:sellersku=>"5154464774", :asin=>"B00013J6HY", :price=>"445.94"}, 
+        # {:sellersku=>"5154464774", :asin=>"B00J7QTLTE", :price=>"40.97"}, 
         # {:sellersku=>"5164589013", :asin=>"B007CB4OFM", :price=>"51.62"}, 
         # {:sellersku=>"5161195001", :asin=>"B00Q6X06W2", :price=>"11.49"}]
         @final_report_array.each { |x|  @asins << x[:asin] }
@@ -33,7 +33,6 @@ module ClassMethods
       
         @client_call.auth_token = token
         puts @client_call.get_service_status
-        binding.pry
         @asins.each do |x|
       
             def call_api(x)  
@@ -67,7 +66,6 @@ module ClassMethods
             end
          
             relationships = @y["Product"]["Relationships"]
-          
             if relationships.nil?
                 @is_parent = true
             else
@@ -152,8 +150,7 @@ module ClassMethods
                 compare_at_price = "We didn't get a compare at price"
               end
           
-            puts "This is the compare at price #{compare_at_price}"
-            
+
             low_image = @into_api.key?("SmallImage")
               if low_image
                 low_image = @into_api["SmallImage"]["URL"]
@@ -192,8 +189,9 @@ module ClassMethods
                 end
                 
                 y = uno.to_h
-                
+                binding.pry
                 @description = y["ItemLookupResponse"]["Items"]["Item"].key?("EditorialReviews")
+                binding.pry
                   if @description
                     @description = y["ItemLookupResponse"]["Items"]["Item"]["EditorialReviews"]["EditorialReview"]["Content"]
                   else
@@ -214,6 +212,7 @@ module ClassMethods
                         }
                         
               @product_array << results
+              @length = @product_array.length
               @product_array.each do |save|
                 product = Product.new
                 product.title = save[:title]
