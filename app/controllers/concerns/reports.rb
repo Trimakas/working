@@ -11,30 +11,29 @@ module Reports
     module ClassMethods
     
         def report_details(token, marketplace_id, merchant)
-          
+
           status = MWS::Sellers::Client.new(
             marketplace_id:        marketplace_id,
             merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
             aws_access_key_id:     ENV["aws_access_key_id"],
-            aws_secret_access_key: ENV["aws_secret_access_key"]
+            aws_secret_access_key: ENV["aws_secret_access_key"],
+            auth_token:            token
           )
           
-          puts status.get_service_status
+          
+          status.get_service_status.inspect
           
           @client = MWS::Reports::Client.new(
             marketplace_id:        marketplace_id,
             merchant_id:           merchant.merchant_identifier, #this is Gennifers A2EUUGYN7CN0KC this is mine A340I3BHJ03NV9
             aws_access_key_id:     ENV["aws_access_key_id"],
-            aws_secret_access_key: ENV["aws_secret_access_key"]
+            aws_secret_access_key: ENV["aws_secret_access_key"],
+            auth_token:            token
           )
           
 
           @status_array = []
-          #this is the auth token from Gennifer that I need to request her reports..
-          #@client.auth_token = "amzn.mws.88a6be2d-bd98-3abd-f596-0bb2a1ed1adf"
-          
-          @client.auth_token = token
-          
+
           #first we need to see if a FBA report has been requested in the past 1800 seconds
             begin
             @lookie_here = @client.get_report_list().parse
@@ -46,6 +45,9 @@ module Reports
                 sleep 2 and retry
               rescue Excon::Errors::Forbidden => e
                 puts "We got the following API error #{e.message}"
+                sleep 2 and retry
+              rescue Excon::Errors::SocketError => e
+                puts "We got the following socket error #{e.message}"
                 sleep 2 and retry
               else
                 puts "The report list was requested fine"
@@ -259,7 +261,6 @@ module Reports
           end
         
           final_active_array = CSV.new(@almost_active_report, headers: true, :header_converters => :symbol).to_a.map {|row| row.to_hash }
-        
           final_active_array.each do |wassup|
             wassup.delete_if { |key, value| key != :price && key != :asin1 }
           end
@@ -270,7 +271,7 @@ module Reports
   # for the keys as the prices in the array. 
   
           @final_report_array = got_inventory_array.each { |g| g[:price] = h[g[:asin]] if h.key?(g[:asin]) }
-          
+          binding.pry
           puts "got it, final_report_array!"
 ### the final array has the msku, asin and price in it.. 
   

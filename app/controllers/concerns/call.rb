@@ -189,9 +189,7 @@ module ClassMethods
                 end
                 
                 y = uno.to_h
-                binding.pry
                 @description = y["ItemLookupResponse"]["Items"]["Item"].key?("EditorialReviews")
-                binding.pry
                   if @description
                     @description = y["ItemLookupResponse"]["Items"]["Item"]["EditorialReviews"]["EditorialReview"]["Content"]
                   else

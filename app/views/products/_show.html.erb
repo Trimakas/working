@@ -2,18 +2,33 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Show Variants: <%= @product.asin %></h3>
+            <h3>Show Variants for: <%= @product.asin %></h3>
         </div>
         <div class="well">
             <div class="modal-body">
-            <ul class="errors"></ul>
-            Are you sure you wish to delete <b><%= @product.title %></b>?
+              <div class="container-fluid">
+            The following are variants for this product: <b><%= @product.variants %></b>
+
+            <%= @product.variants do |f| %>
+
+              <div class="row spacer">                        
+                <div class="form-group">
+                  <label for="title" class="col-sm-1 control-label">Title</label>
+                    <div class="col-sm-10">    
+                    <% binding.pry %>
+                      <% variant = Product.find_by_asin(f) %>
+                      <%= variant.title %>
+                      <% end %>  
+                    </div>
+                </div>
+              </div>
+
+              </div>
             </div>
         </div>
-        
+
         <div class="modal-footer">
-          <%= link_to "Yes, Delete This Product", product_path(@product), method: :delete, class: "orange btn btn-primary btn-sm" %>
-          <%= link_to "No, Please Don't", "#", class: "btn btn-primary btn-sm", data: { dismiss: "modal" } %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
     </div>
   </div>

@@ -52,10 +52,12 @@ class MerchantsController < ApplicationController
         token = current_merchant.token
         Merchant.report_details(token, marketplace, current_merchant)
         Merchant.get_api(token, marketplace, current_merchant)
-        Product.set_variations
-        respond_to do |format|
-            format.js {render inline: "location.reload();" }
-        end
+        Product.set_variations(current_merchant)
+        Product.delete_duplicate_asins(current_merchant)
+        redirect_to :back
+        # respond_to do |format|
+        #     format.js {render inline: "location.reload();" }
+        # end
         
         
     end

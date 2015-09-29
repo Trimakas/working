@@ -80,7 +80,11 @@
 
   <% @merchant.products.each do |product| %>
     <tr>
-      <td><%= link_to "", product_path(product), remote: true, class: "glyphicon glyphicon-plus no_underline" %></td>    
+      <% if product.is_variant == true %>
+        <td><%= link_to "", product_path(product), remote: true, class: "glyphicon glyphicon-plus no_underline" %></td>
+      <% else %>
+        <td></td>
+      <% end %>  
       <td><%= check_box_tag('sellersku[]', product.sellersku) %></td>
       <td><%= product.title %></td>
       <td><%= product.asin %></td>
