@@ -45,13 +45,13 @@ class ProductsController < AuthenticatedController
   end
 
   def push_to_shopify
-    domain = Rails.cache.read("domain")
+    domain = Merchant.find(session[:merchant_id]).domain
     shop = Shop.find_by(shopify_domain: domain)
     token = shop.shopify_token
     sesh = ShopifyAPI::Session.new(domain, token)
     SessionStorage.store(sesh)
-    Product.push_it(params[:sellersku], domain, token)
-    redirect_to merchant_path(shop.merchant_id)
+    Product.does_this_sku_exist_on_shopify(params[:sellersku], domain, token)
+    redirect_to :back
   end
 
     private

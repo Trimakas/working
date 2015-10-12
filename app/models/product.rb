@@ -10,7 +10,6 @@ class Product < ActiveRecord::Base
     
     before_save     :split_off
     
-    
     def split_off
         @merchant = self.merchant_id
         self.twenty_of_title = self.title[0,20]
@@ -21,17 +20,17 @@ class Product < ActiveRecord::Base
         just_variations_hash = grouped_and_counted_products.select {|key, value| value > 1}
         just_variations_hash.each do |key, value|
            actual_variants = Product.where(twenty_of_title: "#{key}")
-           array_of_asins = actual_variants.pluck(:asin)
+           array_of_skus = actual_variants.pluck(:sellersku)
                 actual_variants.each do |update_variants|
-                    update_variants.update(variants: array_of_asins, is_variant: true)
+                    update_variants.update(variants: array_of_skus, is_variant: true)
                 end
         end
 
     end
     
-    def self.delete_duplicate_asins(merchant)
+    def self.delete_duplicate_skus(merchant)
         self.where(is_variant: true, merchant_id: merchant.id).find_each do |variant_list|
-            variant_list.variants.delete(variant_list.asin)
+            variant_list.variants.delete(variant_list.sellersku)
             variant_list.save
             end
     end

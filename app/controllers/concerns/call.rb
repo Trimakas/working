@@ -16,6 +16,8 @@ module ClassMethods
     def get_api(token, marketplace_id, merchant)
         @asins = []
     
+        #@final_report_array = [{:sellersku=>"2273500028", :asin=>"B0044WWCB0", :price=>"15.49"}]
+        
         # @final_report_array = [{:sellersku=>"2273500028", :asin=>"B0015R9YL8", :price=>"15.49"}, 
         # {:sellersku=>"5154464774", :asin=>"B00J7QTLTE", :price=>"40.97"}, 
         # {:sellersku=>"5164589013", :asin=>"B007CB4OFM", :price=>"51.62"}, 
@@ -53,7 +55,7 @@ module ClassMethods
             end
             
             call_api(x)
-        
+
             if @y["status"] == "ClientError"
                 puts @y["Error"]["Message"]
                 bad = @asins.index(x)
@@ -81,6 +83,13 @@ module ClassMethods
                 vendor = "We didn't get a vendor"
               end
        
+            material = @into_api.key?("MaterialType")
+              if material
+                material = @into_api["Brand"]
+              else  
+                material = nil
+              end
+            
             title = @into_api.key?("Title")
               if title
                 title = @into_api["Title"]
@@ -99,14 +108,14 @@ module ClassMethods
               if @color
                 @color = @into_api["Color"]
               else  
-                @color = "We didn't get a color"
+                @color = nil
               end
         
             size = @into_api.key?("Size")
                 if size
                 size = @into_api["Size"]
             else
-                size = "We didn't get a size"
+                size = nil
             end
         
             weight = @into_api.key?("PackageDimensions")
@@ -119,35 +128,35 @@ module ClassMethods
                   weight_grams = (weight*453).to_i
                 end
               else
-                weight = "We didn't get a weight"
+                weight = nil
               end
           
             package_height = @into_api["PackageDimensions"].key?("Height")
               if package_height
                 package_height = @into_api["PackageDimensions"]["Height"]["__content__"]
               else 
-                package_height = "We didn't get a package height"
+                package_height = nil
               end
         
             package_length = @into_api["PackageDimensions"].key?("Length")
               if package_length
                 package_length = @into_api["PackageDimensions"]["Length"]["__content__"]
               else 
-                package_length = "We didn't get a package length"
+                package_length = nil
               end
         
             package_width = @into_api["PackageDimensions"].key?("Width")
               if package_width
                 package_width = @into_api["PackageDimensions"]["Width"]["__content__"]
               else 
-                package_width = "We didn't get a package width"
+                package_width = nil
               end
   
             compare_at_price = @into_api.key?("ListPrice")
               if compare_at_price
                 compare_at_price = @into_api["ListPrice"]["Amount"]   
               else 
-                compare_at_price = "We didn't get a compare at price"
+                compare_at_price = nil
               end
           
 
@@ -203,10 +212,11 @@ module ClassMethods
               
               results = {:asin => x, :bullets => bullets, :title => title, :package_height => package_height,
                         :package_length => package_length, :vendor => vendor, :type => type, :color => @color, 
-                        :image => hi_image, :package_width => package_width,
+                        :image => hi_image, :package_width => package_width, :material => material,
                         :size => size, :weight => weight, :compare_at_price => compare_at_price,
                         :description => @description, :price => @final_report_array[spot][:price], 
-                        :sellersku => @final_report_array[spot][:sellersku], :merchant_id => @merchant_id
+                        :sellersku => @final_report_array[spot][:sellersku], :merchant_id => @merchant_id,
+                        :inventory => @final_report_array[spot][:quantity_available]
                         }
                         
               @product_array << results
@@ -218,11 +228,13 @@ module ClassMethods
                 product.package_height = save[:package_height]
                 product.package_length = save[:package_length]
                 product.package_width = save[:package_width]
+                product.material = save[:material]
                 product.vendor = save[:vendor]
                 product.product_type = save[:type]
                 product.color = save[:color]
                 product.image = save[:image]
                 product.size = save[:size]
+                product.inventory = save[:inventory]
                 product.weight = save[:weight]
                 product.compare_at_price = save[:compare_at_price]
                 product.description = save[:description]

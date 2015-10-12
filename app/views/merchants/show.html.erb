@@ -81,7 +81,7 @@
   <% @merchant.products.each do |product| %>
     <tr>
       <% if product.is_variant == true %>
-        <td><%= link_to "", product_path(product), remote: true, class: "glyphicon glyphicon-plus no_underline" %></td>
+        <td><%= link_to "", product_path(product), remote: true, class: "glyphicon glyphicon-plus no_underline centered" %></td>
       <% else %>
         <td></td>
       <% end %>  

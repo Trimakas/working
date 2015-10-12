@@ -55,9 +55,6 @@ class MerchantsController < ApplicationController
         Product.set_variations(current_merchant)
         Product.delete_duplicate_asins(current_merchant)
         redirect_to :back
-        # respond_to do |format|
-        #     format.js {render inline: "location.reload();" }
-        # end
         
         
     end

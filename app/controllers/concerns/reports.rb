@@ -236,14 +236,13 @@ module Reports
           end
       
           got_inventory_array = CSV.new(@almost_fba_report, headers: true, :header_converters => :symbol).to_a.map {|row| row.to_hash }
-            
+ 
           got_inventory_array.delete_if { |s| s[:quantity_available] == "0" || s[:quantity_available] == nil }
-            
+
           got_inventory_array.each do |x|
-            x.delete_if { |key, value| key == :fulfillmentchannelsku || key == :conditiontype || key == :warehouseconditioncode || key == :quantity_available}
+            x.delete_if { |key, value| key == :fulfillmentchannelsku || key == :conditiontype || key == :warehouseconditioncode }
           end 
-  ######### this returns my products with inventory > 0 and ASIN and MSKU
-          
+  ######### this returns my products with inventory > 0 and ASIN and MSKU and quantity avail.
           begin
           
           @almost_active_report = @client.get_report(@report_id_a).parse.to_csv

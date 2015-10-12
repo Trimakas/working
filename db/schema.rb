@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925182738) do
+ActiveRecord::Schema.define(version: 20151007150319) do
 
   create_table "merchants", force: :cascade do |t|
     t.string "merchant_identifier", null: false
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20150925182738) do
     t.text     "variants"
     t.text     "twenty_of_title"
     t.boolean  "is_parent"
+    t.integer  "inventory"
+    t.string   "material"
   end
 
   create_table "shops", force: :cascade do |t|

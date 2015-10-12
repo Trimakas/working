@@ -241,3 +241,32 @@ float: left;
 .no_underline:hover {
     text-decoration: none;
 }
+
+.upper {
+    text-transform: uppercase;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.better_label {
+    color: #555 !important;
+    font-size: 14px !important;
+    font-weight: normal !important;    
+}
+
+.thumb {
+    border-style: solid !important;
+    border-width: 1px !important;
+    border-color: #ddd !important;
+    max-width: 75px; 
+    height: auto;
+}
+
+.centered { 
+    vertical-align: middle !important;
+    text-align: center !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
